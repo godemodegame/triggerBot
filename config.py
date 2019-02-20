@@ -1,1 +1,2 @@
-token = "772373440:AAGhJEX4Y5V6RVHBOTAjQig6XHjJyfvlQ10"
+token = ""
+path = ""
