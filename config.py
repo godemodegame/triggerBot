@@ -1,1 +1,1 @@
-token = "" #add here tour token from @BotFather
+token = "772373440:AAGhJEX4Y5V6RVHBOTAjQig6XHjJyfvlQ10"
