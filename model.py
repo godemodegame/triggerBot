@@ -1,10 +1,15 @@
 import sqlite3
-from path import path
+
+import config
+
+path = config.path + "triggerBot.db"
+
+
 
 def addTrigger(message):
     trigger = message.text.replace("/add_trigger ", "")
 
-    dataBase = sqlite3.connect( path() )
+    dataBase = sqlite3.connect( path )
     cursorDataBase = dataBase.cursor()
 
     cursorDataBase.execute("SELECT text FROM triggers WHERE trigger = '%s' AND chatId = '%s'" % (trigger, message.chat.id))
@@ -51,10 +56,12 @@ def addTrigger(message):
 
 
 
+
+
 def delTrigger(message):
     trigger = message.text.replace("/del_trigger ", "")
 
-    dataBase = sqlite3.connect( path() )
+    dataBase = sqlite3.connect( path )
     cursorDataBase = dataBase.cursor()
 
     cursorDataBase.execute("DELETE FROM triggers WHERE chatId = %s AND trigger = '%s'" % (message.chat.id, trigger))
@@ -65,8 +72,10 @@ def delTrigger(message):
 
 
 
+
+
 def listTriggers(message):
-    dataBase = sqlite3.connect( path () )
+    dataBase = sqlite3.connect( path )
     cursorDataBase = dataBase.cursor()
 
     cursorDataBase.execute("SELECT trigger FROM triggers WHERE chatId = %s" % (message.chat.id))
@@ -82,3 +91,18 @@ def listTriggers(message):
         return list
     else:
         return "no triggers in this chat\n\n/add_trigger {trigger}"
+
+
+
+
+
+
+def findTrigger(message):
+    dataBase = sqlite3.connect( path  )
+    cursorDataBase = dataBase.cursor()
+
+    cursorDataBase.execute("SELECT type, text FROM triggers WHERE chatId = %s AND trigger = '%s'" % (message.chat.id, message.text))
+    row = cursorDataBase.fetchone()
+
+    if row is not None:
+        return row

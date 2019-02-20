@@ -3,7 +3,7 @@
 import telebot
 import logging
 
-from model import addTrigger, delTrigger, listTriggers
+from model import addTrigger, delTrigger, listTriggers, findTrigger
 import config       #config.py
 
 # CRITICAL > ERROR > WARNING > INFO
@@ -48,9 +48,40 @@ def messageHandler(message):
 
         # Searching triggers
         else:
-            msg = findTrigger(message)
-            if msg:
-                send_message(message.chat.id, msg)
+            row = findTrigger(message)
+            if row:
+                logging.info(row[0] + " trigger ( " + row[1] + " ) in chat " + str(message.chat.id))
+                if str(row[0]) == 'text':
+                    bot.send_message(message.chat.id, str(row[1]))
+                elif str(row[0]) == 'sticker':
+                    bot.send_sticker(message.chat.id, str(row[1]))
+                elif str(row[0]) == 'photo':
+                    bot.send_photo(message.chat.id, str(row[1]))
+                elif str(row[0]) == 'video':
+                    bot.send_video(message.chat.id, str(row[1]))
+                elif str(row[0]) == 'audio':
+                    bot.send_audio(message.chat.id, str(row[1]))
+                elif str(row[0]) == 'voice':
+                    bot.send_voice(message.chat.id, str(row[1]))
+                elif str(row[0]) == 'document':
+                    bot.send_document(message.chat.id, str(row[1]))
+                elif str(row[0]) == 'video_note':
+                    bot.send_video_note(message.chat.id, str(row[1]))
+            else:
+                logging.info("@" + message.from_user.username + " in " + str(message.chat.id) + " wrote " + message.text)
+
+    elif message.chat.type == "private":
+        bot.send_message(message.chat.id, """<b>Hello!</b>
+
+send reply to message /add_trigger {trigger} to add trigger
+/del_trigger {trigger} to delete trigger
+/list_of triggers
+
+https://github.com/godemodegame/triggerBot
+by @godemodegame
+        """, parse_mode = "html")
+
+
 
 
 
