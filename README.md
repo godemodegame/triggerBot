@@ -34,4 +34,5 @@ this token we save
 
 6) start bot:
 
-      python3 triggerBot.py
+`python3 triggerBot.py`
+
