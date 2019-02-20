@@ -1,5 +1,14 @@
-# triggerbot
-triggerbot for telegram
+# TriggerBot
+triggerbot for telegram(<https://t.me/justtriggerthatbot>)
+
+### Usage:
+add your bot or <https://t.me/justtriggerthatbot> to the chat
+
+add trigger: /add_trigger
+
+del: /del_trigger
+
+list: /list_of triggers 
 
 ### Instalation:
 
