@@ -7,7 +7,7 @@ path = config.path + "triggerBot.db"
 
 
 def addTrigger(message):
-    trigger = message.text.replace("/add_trigger ", "")
+    trigger = message.text.replace("/add_trigger ", "").lower()
 
     dataBase = sqlite3.connect( path )
     cursorDataBase = dataBase.cursor()
@@ -59,7 +59,7 @@ def addTrigger(message):
 
 
 def delTrigger(message):
-    trigger = message.text.replace("/del_trigger ", "")
+    trigger = message.text.replace("/del_trigger ", "").lower()
 
     dataBase = sqlite3.connect( path )
     cursorDataBase = dataBase.cursor()
@@ -101,7 +101,7 @@ def findTrigger(message):
     dataBase = sqlite3.connect( path  )
     cursorDataBase = dataBase.cursor()
 
-    cursorDataBase.execute("SELECT type, text FROM triggers WHERE chatId = %s AND trigger = '%s'" % (message.chat.id, message.text))
+    cursorDataBase.execute("SELECT type, text FROM triggers WHERE chatId = %s AND trigger = '%s'" % (message.chat.id, message.text.lower() ) )
     row = cursorDataBase.fetchone()
 
     if row is not None:
