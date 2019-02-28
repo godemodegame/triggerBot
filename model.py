@@ -106,3 +106,5 @@ def findTrigger(message):
 
     if row is not None:
         return row
+    else:
+        return None
